@@ -1,1 +1,8 @@
-node_modules
+node_modules/
+.nuxt/
+.output/
+.cache/
+.idea/
+.DS_Store
+.env
+.env.*
