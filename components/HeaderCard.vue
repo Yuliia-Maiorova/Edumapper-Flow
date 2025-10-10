@@ -1,24 +1,35 @@
 <script setup lang="ts">
-interface Props {
-  lycee: string
-  city: string
-  lyceeType: string
-}
-defineProps<Props>()
+import IconMapPin from './icons/IconMapPin.vue'
+import IconBuilding from './icons/IconBuilding.vue'
+const props = withDefaults(defineProps<{ lycee: string; city?: string; lyceeType?: string }>(), {
+  city: 'Paris',
+  lyceeType: 'Lycée public'
+})
+const emit = defineEmits<{ (e: 'edit'): void }>()
 </script>
 
 <template>
-  <div class="rounded-2xl bg-[#EEE9E3] px-4 py-3 text-gray-900">
-    <div class="flex items-center justify-between">
-      <div class="flex items-center gap-2 text-[12px] text-gray-600">
-        <span class="inline-flex items-center gap-1 font-semibold text-gray-600">{{ lycee }}</span>
-        <span class="text-gray-300">|</span>
-        <span class="inline-flex items-center gap-1 font-semibold text-gray-600">{{ city }}</span>
+  <div
+    class="rounded-xl p-4 text-white"
+    style="background: linear-gradient(90deg, var(--grad-start) 0%, var(--grad-end) 100%)"
+  >
+      <div class="flex flex-wrap items-start gap-2">
+        <div class="min-w-0 flex-1">
+          <h2 class="text-[17px] font-semibold leading-tight">{{ props.lycee }}</h2>
+          <div class="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] opacity-90">
+            <span class="inline-flex items-center gap-1">
+              <IconMapPin :size="12" />
+              {{ props.city }}
+            </span>
+            <span class="inline-flex items-center gap-1">
+              <IconBuilding :size="12" />
+              {{ props.lyceeType }}
+            </span>
+          </div>
+        </div>
+        <button class="ml-auto shrink-0 rounded-full bg-white px-3 py-1 text-[12px] font-medium text-black" @click="emit('edit')">
+          Modifier
+        </button>
       </div>
-      <button class="text-[12px] text-gray-600 hover:text-black transition-colors font-medium">
-        Modifier
-      </button>
-    </div>
-    <div class="mt-2 text-[14px] font-medium text-gray-700">{{ lyceeType }}</div>
   </div>
 </template>

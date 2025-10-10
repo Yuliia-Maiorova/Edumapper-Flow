@@ -1,40 +1,25 @@
-export default defineEventHandler(async () => {
-    const lycees = [
-        'EDHEC Business School',
-        'EM Lyon Business School',
-        'ESSEC Business School',
-        'HEC Paris',
-        'ESCP Business School'
-    ]
+import { defineEventHandler } from 'h3'
+import { LYCEE_DATA } from '../../utils/lycees'
 
-    const classes = [
-        'Terminale générale',
-        'Terminale technologique',
-        'Terminale professionnelle'
-    ]
+const voies = ['Générale', 'Technologique', 'Professionnelle'] as const
+const classes = ['Seconde', 'Première', 'Terminale'] as const
 
-    const voies = [
-        'Bac général',
-        'Bac technologique STMG',
-        'Bac technologique STI2D',
-        'Bac professionnel'
-    ]
+function pick<T>(arr: readonly T[]) { return arr[Math.floor(Math.random() * arr.length)] }
 
-    const cities: Record<string, string> = {
-        'EDHEC Business School': 'Roubaix',
-        'EM Lyon Business School': 'Lyon',
-        'ESSEC Business School': 'Cergy',
-        'HEC Paris': 'Jouy-en-Josas',
-        'ESCP Business School': 'Paris'
-    }
-
-    const lycee = lycees[Math.floor(Math.random() * lycees.length)]
+export default defineEventHandler(() => {
+    const lyceeObj = pick(LYCEE_DATA)
 
     return {
-        lycee,
-        city: cities[lycee],
-        lyceeType: 'École de commerce',
-        classe: { value: '', options: classes },
-        voie: { value: '', options: voies }
+        lycee: lyceeObj.name,
+        city: lyceeObj.city,
+        lyceeType: lyceeObj.type ?? 'Lycée public',
+        classe: {
+            value: '',
+            options: classes as unknown as string[]
+        },
+        voie: {
+            value: '',
+            options: voies as unknown as string[]
+        }
     }
 })

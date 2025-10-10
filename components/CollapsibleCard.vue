@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watchEffect } from 'vue'
-import IconArrowDown from '~/components/icons/IconArrowDown.vue'
+import IconArrowDown from '../components/icons/IconArrowDown.vue'
 
 const props = withDefaults(defineProps<{
   title: string
@@ -33,7 +33,7 @@ function toggle() { isOpen.value = !isOpen.value }
     <transition enter-active-class="duration-200 ease-out" enter-from-class="opacity-0 -translate-y-1" enter-to-class="opacity-100 translate-y-0" leave-active-class="duration-150 ease-in" leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 -translate-y-1">
       <div v-if="isOpen">
         <slot />
-        <div v-if="onConfirm" class="mt-4 px-4 pb-4">
+        <div class="mt-4 px-4 pb-4">
           <button :disabled="props.confirmDisabled" class="w-full rounded-full py-3 text-sm disabled:cursor-not-allowed disabled:bg-white disabled:text-gray-400 disabled:border disabled:border-gray-300 bg-black text-white" @click.stop="props.onConfirm?.()">Confirmer</button>
         </div>
       </div>

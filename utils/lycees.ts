@@ -1,37 +1,30 @@
-export const LYCEES = [
-    'EDHEC Business School',
-    'EM Lyon Business School',
-    'ESSEC Business School',
-    'HEC Paris',
-    'ESCP Business School',
-    'Audencia Business School',
-    'Grenoble École de Management',
-    'NEOMA Business School',
-    'Skema Business School',
-    'Toulouse Business School'
+export type LyceeItem = { name: string; city: string; type?: string }
+export const LYCEE_DATA: ReadonlyArray<LyceeItem> = [
+    { name: 'Etienne Dolet', city: 'Paris', type: 'Lycée public' },
+    { name: 'Lycée privé Charles de Foucauld', city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée polyvalent Guillaume Tirel', city: 'Paris', type: 'Lycée public' },
+    { name: "Lycée polyvalent l'Initiative", city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée polyvalent privé Saint Jean de Montmartre', city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée privé Pascal', city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée du bâtiment et des travaux publics', city: 'Paris', type: 'Lycée public' },
+    { name: 'Lycée polyvalent privé Saint-Nicolas', city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée privé La Rochefoucauld', city: 'Paris', type: 'Lycée privé' },
+    { name: "Lycée technique privé de l'école technique supérieure du laboratoire", city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée privé Charles Péguy', city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée privé Sainte-Louise', city: 'Paris', type: 'Lycée privé' },
+    { name: "Lycée privé L'Ecole alsacienne", city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée polyvalent ESAA-Ecole Boulle', city: 'Paris', type: 'Lycée public' },
+    { name: 'Lycée polyvalent Paul Poiret', city: 'Paris', type: 'Lycée public' },
+    { name: 'Lycée Charlemagne', city: 'Paris', type: 'Lycée public' },
+    { name: 'Lycée Claude Monet', city: 'Paris', type: 'Lycée public' },
+    { name: 'Lycée privé Lucien de Hirsch', city: 'Paris', type: 'Lycée privé' },
+    { name: 'Lycée privé Saint-Michel de Picpus', city: 'Paris', type: 'Lycée privé' }
 ] as const
 
-export type Lycee = typeof LYCEES[number]
+export const LYCEES = LYCEE_DATA.map(l => l.name) as unknown as readonly string[]
 
-export interface LyceeInfo {
-    name: string
-    city: string
-    type: string
-}
+export type LyceeName = typeof LYCEES[number]
 
-const LYCEE_DATA: Record<string, LyceeInfo> = {
-    'EDHEC Business School': { name: 'EDHEC Business School', city: 'Roubaix', type: 'École de commerce' },
-    'EM Lyon Business School': { name: 'EM Lyon Business School', city: 'Lyon', type: 'École de commerce' },
-    'ESSEC Business School': { name: 'ESSEC Business School', city: 'Cergy', type: 'École de commerce' },
-    'HEC Paris': { name: 'HEC Paris', city: 'Jouy-en-Josas', type: 'École de commerce' },
-    'ESCP Business School': { name: 'ESCP Business School', city: 'Paris', type: 'École de commerce' },
-    'Audencia Business School': { name: 'Audencia Business School', city: 'Nantes', type: 'École de commerce' },
-    'Grenoble École de Management': { name: 'Grenoble École de Management', city: 'Grenoble', type: 'École de commerce' },
-    'NEOMA Business School': { name: 'NEOMA Business School', city: 'Reims', type: 'École de commerce' },
-    'Skema Business School': { name: 'Skema Business School', city: 'Sophia Antipolis', type: 'École de commerce' },
-    'Toulouse Business School': { name: 'Toulouse Business School', city: 'Toulouse', type: 'École de commerce' }
-}
-
-export function getLyceeByName(name: string): LyceeInfo | undefined {
-    return LYCEE_DATA[name]
+export function getLyceeByName(name: string): LyceeItem | undefined {
+    return LYCEE_DATA.find(l => l.name === name)
 }
