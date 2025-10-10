@@ -1,0 +1,14 @@
+services:
+  - type: web
+    name: edumapper-flow
+    env: node
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NITRO_PRESET
+        value: node-server
+      - key: NODE_VERSION
+        value: 20
+      - key: PORT
+        value: 10000

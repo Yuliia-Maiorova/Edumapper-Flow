@@ -8,6 +8,7 @@
     "dev": "nuxt dev",
     "build": "nuxt build",
     "preview": "nuxt preview",
+    "start": "node .output/server/index.mjs",
     "typecheck": "vue-tsc --noEmit -p tsconfig.json",
     "lint": "echo \"add eslint if needed\" && exit 0",
     "commitlint": "commitlint --from=HEAD~1"
