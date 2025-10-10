@@ -1,25 +1,22 @@
 import { defineEventHandler } from 'h3'
-import { LYCEE_DATA } from '../../utils/lycees'
+import { SCHOOL_DATA } from '../../utils/schools'
 
-const voies = ['Générale', 'Technologique', 'Professionnelle'] as const
+const tracks = ['Générale', 'Technologique', 'Professionnelle'] as const
 const classes = ['Seconde', 'Première', 'Terminale'] as const
 
 function pick<T>(arr: readonly T[]) { return arr[Math.floor(Math.random() * arr.length)] }
 
 export default defineEventHandler(() => {
-    const lyceeObj = pick(LYCEE_DATA)
-
+    const school = pick(SCHOOL_DATA)
     return {
-        lycee: lyceeObj.name,
-        city: lyceeObj.city,
-        lyceeType: lyceeObj.type ?? 'Lycée public',
-        classe: {
-            value: '',
-            options: classes as unknown as string[]
-        },
-        voie: {
-            value: '',
-            options: voies as unknown as string[]
-        }
+        school: school.name,
+        lycee: school.name,
+        city: school.city,
+        schoolType: school.type ?? 'Lycée public',
+        lyceeType: school.type ?? 'Lycée public',
+        classGroup: { value: '', options: classes as unknown as string[] },
+        trackGroup: { value: '', options: tracks as unknown as string[] },
+        classe: { value: '', options: classes as unknown as string[] },
+        voie: { value: '', options: tracks as unknown as string[] }
     }
 })

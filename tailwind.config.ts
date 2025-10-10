@@ -7,7 +7,8 @@ export default {
                 pinkGrad: '#FF4C97'
             },
             fontFamily: {
-                sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif']
+                sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                brand: ['"Playfair Display"', 'ui-serif', 'Georgia', 'serif']
             }
         }
     }

@@ -5,8 +5,8 @@ import IconSparkle from '../components/icons/IconSparkle.vue'
 <template>
   <div class="min-h-screen bg-[#F8F5F2]">
     <header class="mx-auto w-full max-w-[1280px] px-4 py-4">
-      <div class="flex items-center gap-1 text-[20px] font-semibold tracking-tight">
-        <span>Edumapper</span>
+      <div class="flex items-center gap-1">
+        <span class="font-brand text-[22px] font-semibold tracking-tight">Edumapper</span>
         <IconSparkle class="h-4 w-4 text-black/70" />
       </div>
     </header>

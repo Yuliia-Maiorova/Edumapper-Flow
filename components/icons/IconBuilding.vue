@@ -1,21 +1,9 @@
+<script setup lang="ts">
+withDefaults(defineProps<{ size?: number | string }>(), { size: 12 })
+</script>
+
 <template>
-  <svg 
-    :width="size" 
-    :height="size" 
-    viewBox="0 0 24 24" 
-    fill="currentColor"
-    class="icon-building"
-  >
-    <path d="M3 21h4V10H3v11zm7-11h4v11h-4V10zm7 0h4v11h-4V10zM2 8l10-5 10 5v1H2V8z"/>
+  <svg :width="size" :height="size" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M3 21h18M5 21V7a2 2 0 012-2h10a2 2 0 012 2v14M9 9h2M13 9h2M9 13h2M13 13h2M9 17h2M13 17h2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
   </svg>
 </template>
-
-<script setup lang="ts">
-interface Props {
-  size?: number | string
-}
-
-withDefaults(defineProps<Props>(), {
-  size: 24
-})
-</script>
