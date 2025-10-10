@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useRouter } from 'nuxt/app'
 import { ref, computed } from 'vue'
-import { LYCEES, getLyceeByName } from '../utils/lycees'
+import { SCHOOLS, getSchoolByName } from '../utils/schools'
 
 const router = useRouter()
 const { data, refresh } = await useAsyncData('prefill', () => $fetch('/api/prefill'))
@@ -10,8 +10,8 @@ type OptionGroup = { value: string; options: string[] }
 const pick = (arr: string[]) => (arr?.length ? arr[Math.floor(Math.random() * arr.length)] : '')
 
 const lycee = ref<string>(data.value?.lycee ?? '')
-const city = ref<string>(data.value?.city ?? (getLyceeByName(data.value?.lycee ?? '')?.city ?? 'Paris'))
-const lyceeType = ref<string>(data.value?.lyceeType ?? (getLyceeByName(data.value?.lycee ?? '')?.type ?? 'Lycée public'))
+const city = ref<string>(data.value?.city ?? (getSchoolByName(data.value?.lycee ?? '')?.city ?? 'Paris'))
+const lyceeType = ref<string>(data.value?.lyceeType ?? (getSchoolByName(data.value?.lycee ?? '')?.type ?? 'Lycée public'))
 
 const classe = ref<OptionGroup>(data.value?.classe ?? { value: '', options: [] })
 const voie = ref<OptionGroup>(data.value?.voie ?? { value: '', options: [] })
@@ -53,7 +53,7 @@ function classeConfirmed() {
 
 function onLyceeChange(next: string) {
   lycee.value = next
-  const meta = getLyceeByName(next)
+  const meta = getSchoolByName(next)
   if (meta) {
     city.value = meta.city
     lyceeType.value = meta.type ?? 'Lycée public'
@@ -144,7 +144,7 @@ function goToResult() {
 
     <LyceeSelectDialog
       v-model="lyceeDialogOpen"
-      :all-lycees="(LYCEES as readonly string[])"
+  :all-lycees="(SCHOOLS as readonly string[])"
       :selected="lycee"
       @confirm="onLyceeChange"
     />
