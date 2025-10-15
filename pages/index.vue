@@ -9,12 +9,12 @@ const { data, refresh } = await useAsyncData('prefill', () => $fetch('/api/prefi
 type OptionGroup = { value: string; options: string[] }
 const pick = (arr: string[]) => (arr?.length ? arr[Math.floor(Math.random() * arr.length)] : '')
 
-const lycee = ref<string>(data.value?.lycee ?? '')
-const city = ref<string>(data.value?.city ?? (getSchoolByName(data.value?.lycee ?? '')?.city ?? 'Paris'))
-const lyceeType = ref<string>(data.value?.lyceeType ?? (getSchoolByName(data.value?.lycee ?? '')?.type ?? 'Lycée public'))
+const lycee = ref<string>(data.value?.school ?? '')
+const city = ref<string>(data.value?.city ?? (getSchoolByName(data.value?.school ?? '')?.city ?? 'Paris'))
+const lyceeType = ref<string>(data.value?.schoolType ?? (getSchoolByName(data.value?.school ?? '')?.type ?? 'Lycée public'))
 
-const classe = ref<OptionGroup>(data.value?.classe ?? { value: '', options: [] })
-const voie = ref<OptionGroup>(data.value?.voie ?? { value: '', options: [] })
+const classe = ref<OptionGroup>(data.value?.classGroup ?? { value: '', options: [] })
+const voie = ref<OptionGroup>(data.value?.trackGroup ?? { value: '', options: [] })
 
 const lyceeDialogOpen = ref(false)
 const classeOpen = ref(true)
@@ -35,11 +35,11 @@ const voieMinWidth = computed(() => minWidthFrom(voie.value?.options || [], 10))
 async function handleRefresh() {
   await refresh()
   if (data.value) {
-    lycee.value = data.value.lycee
+    lycee.value = data.value.school
     city.value = data.value.city
-    lyceeType.value = data.value.lyceeType ?? 'Lycée public'
-    const clsOpts = (data.value.classe?.options || []) as string[]
-    const voieOpts = (data.value.voie?.options || []) as string[]
+    lyceeType.value = data.value.schoolType ?? 'Lycée public'
+    const clsOpts = (data.value.classGroup?.options || []) as string[]
+    const voieOpts = (data.value.trackGroup?.options || []) as string[]
     classe.value = { value: pick(clsOpts), options: clsOpts }
     voie.value = { value: pick(voieOpts), options: voieOpts }
     classeOpen.value = true
@@ -144,7 +144,7 @@ function goToResult() {
 
     <LyceeSelectDialog
       v-model="lyceeDialogOpen"
-  :all-lycees="(SCHOOLS as readonly string[])"
+      :all-lycees="(SCHOOLS as readonly string[])"
       :selected="lycee"
       @confirm="onLyceeChange"
     />

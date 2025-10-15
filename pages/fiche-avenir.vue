@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'nuxt/app'
+import mapPinUrl from '../components/icons/IconMapPin.svg?url'
+
 const file = ref<File | null>(null)
 const error = ref<string | null>(null)
 const uploading = ref(false)
@@ -47,10 +50,29 @@ async function upload() {
     uploading.value = false
   }
 }
+
+const route = useRoute()
+const cityFromQuery = computed(() => (route.query.city as string) || 'Paris')
+const lyceeTypeFromQuery = computed(() => (route.query.lyceeType as string) || 'Lycée privé')
 </script>
 
 <template>
   <main class="mx-auto max-w-[420px] md:max-w-[800px] space-y-4 pb-16 px-4">
+    <!-- Header line: “Lycée privé | City” with map pin, DM Sans, Gris-600 -->
+    <div class="rounded-2xl bg-[#EEE8E4] px-4 py-3">
+      <div
+        class="flex items-center justify-center gap-2 text-[14px] leading-[1.4] font-medium"
+        style="font-family: 'DM Sans', sans-serif; color:#757575; vertical-align: middle;"
+      >
+        <span class="inline-flex items-center gap-1">{{ lyceeTypeFromQuery }}</span>
+        <span>|</span>
+        <span class="inline-flex items-center gap-1">
+          <img :src="mapPinUrl" alt="" class="h-3 w-3" aria-hidden="true" />
+          {{ cityFromQuery }}
+        </span>
+      </div>
+    </div>
+
     <div class="rounded-2xl bg-white p-4">
       <h1 class="text-lg font-semibold">Joindre votre Fiche Avenir</h1>
       <p class="mt-1 text-sm text-gray-600">Ajoutez votre fiche Parcoursup à votre estimation.</p>
@@ -74,7 +96,11 @@ async function upload() {
       </div>
 
       <div class="mt-4">
-        <button :disabled="!file || uploading" class="w-full rounded-full py-3 text-white disabled:cursor-not-allowed disabled:bg-white disabled:text-gray-400 disabled:border disabled:border-gray-300 bg-black" @click="upload">
+        <button
+          :disabled="!file || uploading"
+          class="w-full rounded-full py-3 text-white disabled:cursor-not-allowed disabled:bg-white disabled:text-gray-400 disabled:border disabled:border-gray-300 bg-black"
+          @click="upload"
+        >
           {{ uploading ? 'Envoi…' : 'Envoyer la fiche' }}
         </button>
       </div>

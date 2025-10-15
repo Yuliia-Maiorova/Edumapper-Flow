@@ -23,8 +23,6 @@ export const SCHOOL_DATA: ReadonlyArray<SchoolItem> = [
 
 export const SCHOOLS = SCHOOL_DATA.map(l => l.name) as unknown as readonly string[]
 
-export type SchoolName = typeof SCHOOLS[number]
-
 export function getSchoolByName(name: string): SchoolItem | undefined {
     return SCHOOL_DATA.find(l => l.name === name)
 }

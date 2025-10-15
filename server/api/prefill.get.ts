@@ -10,13 +10,9 @@ export default defineEventHandler(() => {
     const school = pick(SCHOOL_DATA)
     return {
         school: school.name,
-        lycee: school.name,
         city: school.city,
         schoolType: school.type ?? 'Lycée public',
-        lyceeType: school.type ?? 'Lycée public',
         classGroup: { value: '', options: classes as unknown as string[] },
         trackGroup: { value: '', options: tracks as unknown as string[] },
-        classe: { value: '', options: classes as unknown as string[] },
-        voie: { value: '', options: tracks as unknown as string[] }
     }
 })
